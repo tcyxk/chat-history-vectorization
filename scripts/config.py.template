@@ -1,0 +1,48 @@
+"""
+Configuration template for chat history vectorization system.
+Copy this to config.py and fill in your values.
+"""
+import os
+
+# ============ Agent Identity ============
+AGENT_NAME = "your_agent_name"       # Used for Collection/DB isolation
+AGENT_DISPLAY_NAME = "Your Agent"    # Display name
+
+# ============ Paths ============
+HERMES_HOME = os.path.expanduser("~/.hermes")
+SESSIONS_DIR = os.path.join(HERMES_HOME, "sessions")
+SCRIPTS_DIR = os.path.join(HERMES_HOME, "scripts")
+BIN_DIR = os.path.join(HERMES_HOME, "bin")
+
+# ============ Qdrant ============
+QDRANT_HOST = "localhost"            # Qdrant server host
+QDRANT_PORT = 6333                  # Qdrant HTTP port
+QDRANT_URL = f"http://{QDRANT_HOST}:{QDRANT_PORT}"
+COLLECTION_NAME = f"chat_{AGENT_NAME}"
+
+# ============ llama-embedding ============
+LLAMA_EMBEDDING_BIN = os.path.join(BIN_DIR, "llama-embedding")
+# Path to your BGE-M3 model file (.gguf)
+BGE_M3_MODEL = "/path/to/your/bge-m3-q8_0.gguf"
+LLAMA_LD_LIBRARY_PATH = BIN_DIR
+
+# ============ Vector Parameters ============
+VECTOR_DIM = 1024                    # BGE-M3 embedding dimension
+CHUNK_SIZE = 2000                   # Max characters per chunk (sentence boundary)
+MAX_TEXT_LEN = 8000                 # Max text length for embedding (truncate if exceeded)
+
+# ============ Checkpoint ============
+MIGRATE_CHECKPOINT = os.path.join(HERMES_HOME, f"migrate_{AGENT_NAME}_checkpoint.json")
+REALTIME_CHECKPOINT = os.path.join(HERMES_HOME, f"realtime_{AGENT_NAME}_checkpoint.json")
+
+# ============ Memory DB (multi-account isolation) ============
+MEMORY_DB = os.path.join(HERMES_HOME, f"memory_store_{AGENT_NAME}.db")
+
+# ============ Realtime Monitoring ============
+POLL_INTERVAL = 30                  # Poll interval in seconds
+INOTIFY_AVAILABLE = True            # inotify support (Linux: True, Termux: True)
+
+# ============ Service Health Check ============
+WATCHDOG_INTERVAL = 60             # Watchdog check interval (seconds)
+QDRANT_GRACE_START = 10            # Wait seconds after Qdrant starts
+LLAMA_GRACE_START = 5             # Wait seconds after llama-embedding starts
