@@ -1,0 +1,8 @@
+name: rag_context
+description: >
+  RAG retrieval hook: before each user message, search the Qdrant chat history
+  vector DB for semantically relevant prior conversations and inject them as
+  context into the user's message (via rewrite action).
+version: 1.0.0
+events:
+  - pre_gateway_dispatch
